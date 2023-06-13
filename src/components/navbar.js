@@ -1,11 +1,11 @@
+import { UserButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from 'next/link'
 import React from 'react'
-import { useSession, signIn, signOut } from 'next-auth/react';
 import toast from 'react-hot-toast'
 
 function Navbar() {
-  const { data: session } = useSession()
+  const { user } = useUser();
 
   return (
     <div>
@@ -44,29 +44,20 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        <div className="navbar-end">         
-          
-          { session ? (
-              <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                  <div className="w-10 rounded-full">
-                    <img src={session.user.image} />
-                  </div>
-                </label>
-                <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                  <li><Link href="/profile">Profile</Link></li>
-                  <li><button onClick={() => {
-                    toast.success("Logged out")
-                    signOut() }}
-                  >
-                    Sign Out</button>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <button onClick={() => signIn("auth0")}>Sign In/Sign Up</button>
-            )
-          }
+        <div className="navbar-end">
+          { !user ? (
+            <div>
+              <Link href="/sign-up">Sign Up</Link>
+              <Link href="/sign-in">Sign In</Link>
+            </div>
+          ) : (
+            <UserButton
+              userProfileMode="navigation"
+              userProfileUrl={
+                typeof window !== "undefined" ? `${window.location.origin}/profile` : undefined
+              }
+            />
+          )}
         </div>
       </div>
     </div>

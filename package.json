@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^2.6.0",
+    "@clerk/nextjs": "^4.21.1",
     "@googlemaps/js-api-loader": "^1.15.1",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@hookform/resolvers": "^3.1.0",

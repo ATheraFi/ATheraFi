@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast'
 import { useLoadScript } from '@react-google-maps/api';
 import { useMemo } from 'react'
 import { LoadingPage } from '@/components'
-import { SessionProvider } from 'next-auth/react'
+import { ClerkProvider } from '@clerk/nextjs';
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const libraries = useMemo(() => ['places'], [])
@@ -16,7 +16,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   })
 
   return isLoaded ? (
-    <SessionProvider session={session}>
+    <ClerkProvider { ...pageProps }>
       <Head>
         <title>ATheraFi</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,6 +29,6 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         <Toaster position="top-center" />
         <Component {...pageProps} />
       </Layout>
-    </SessionProvider>
+    </ClerkProvider>
   ) : <LoadingPage />
 }

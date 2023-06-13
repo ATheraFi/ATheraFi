@@ -1,8 +1,11 @@
 import { SearchBar } from "@/components";
 import {BlogCard} from "@/components";
+import { useUser } from "@clerk/nextjs";
 import { getFeaturedPosts } from "../../lib/hygraph";
 
 export default function Home({ posts }) {
+  const { user } = useUser()
+  console.log('User => ', user)
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-[75vh] bg-gradient-to-l from-blue-400 to-blue-800">

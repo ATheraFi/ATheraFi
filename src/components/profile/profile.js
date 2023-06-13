@@ -35,7 +35,7 @@ const Account = ({ user }) => {
           id="name"
           type="text"
           name="name"
-          value={user.name}
+          value={user.fullName}
           disabled
         />
         <Input
@@ -43,7 +43,7 @@ const Account = ({ user }) => {
           id="email"
           type="text"
           name="email"
-          value={user.email}
+          value={user.primaryEmailAddress.emailAddress}
           disabled
         />
       </div>
@@ -146,12 +146,12 @@ const Profile = ({ user }) => {
     setActiveTab("tab2");
   }
 
+  console.log(user)
   return (
     <div className="card shadow-lg p-8 flex md:flex-row">
       <div className="md:border-r-2 flex flex-col items-center">
-        <Avatar user={user} />
-        {/* <img src={user.image} className="avatar rounded-full w-24" /> */}
-        <h1 className="text-3xl">{user.name}</h1>
+        <img src={user.profileImageUrl} className="avatar rounded-full w-24 mb-2" />
+        <h1 className="text-3xl">{ user.fullName }</h1>
         <ul className="menu bg-base-100 w-56">
           <li><a className={activeTab === "tab1" ? "active" : ""} onClick={handleTab1}>Account</a></li>
 
