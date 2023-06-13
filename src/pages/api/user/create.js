@@ -1,20 +1,21 @@
-import { hash } from "bcryptjs"
 import prisma from "../../../../lib/prisma"
 
-
 export default async function handler(req, res) {
-  const { id, email_addresses } = req.body;
-
-  try {
-    const createdUser = await prisma.user.create({
-      data: {
-        id,
+  if (req.method === "GET") {
+    res.status(200).json({
+      success: true,
+      message: "So this is working"
+    })
+  }
+  if (req.method === "POST") {
+    const { id, email_addresses } = req.body;
+    
+    res.status(200).json({
+      success: true,
+      user: {
+        id: id,
+        email: email_addresses[0].email_address,
       }
-    });
-
-    res.status(200).json(createdUser)
-  } catch (error) {
-    console.log('Error at creating user: ', error)
-    res.status(500).json({ error: 'Failed to create user' })
+    })
   }
 }
