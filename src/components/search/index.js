@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { TherapyType } from "@prisma/client"
+import { toast } from 'react-hot-toast';
 
 function SearchBar() {
   const [city, setCity] = useState('')
@@ -55,6 +56,11 @@ function SearchBar() {
 
   const handleSubmit = async (e) => {
     await e.preventDefault()
+    if (!value.trim()) {
+      toast.error("You must input a location!")
+      return
+    }
+
     try{
       router.push({ 
         pathname: '/therapy/search', 
@@ -80,12 +86,11 @@ function SearchBar() {
             placeholder="New York City, NY"
             className="input input-bordered w-full bg-white"
             value={value}
-            required
             onChange={handleInput}
           />
           <select 
             defaultValue={TherapyType.BEHAVIORAL.value}
-            className="select select-bordered w-full md:w-52"
+            className="select select-bordered w-full md:w-44"
             value={therapyType}
             onChange={(e) => setTherapyType(e.target.value)}
           >
