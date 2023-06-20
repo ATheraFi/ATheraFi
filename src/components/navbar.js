@@ -47,8 +47,8 @@ function Navbar() {
         <div className="navbar-end">
           { !user ? (
             <div>
-              <Link href="/sign-up">Sign Up</Link>
-              <Link href="/sign-in">Sign In</Link>
+              <Link href="/sign-up" className="btn btn-sm btn-secondary mr-2">Sign Up</Link>
+              <Link href="/sign-in" className="btn btn-sm btn-primary btn-outline">Sign In</Link>
             </div>
           ) : (
             <UserButton
