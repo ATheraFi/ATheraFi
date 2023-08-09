@@ -4,33 +4,34 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
 model Therapy {
-  id              String      @id @default(cuid())
-  createdAt       DateTime    @default(now())
-  name            String      @db.VarChar(255)
-  description     String      @db.Text
-  address         String      @db.VarChar(255)
-  city            String      @db.VarChar(255)
-  state           String      @db.VarChar(255)
-  zipcode         String      @db.VarChar(255)
-  companyEmail    String      @db.VarChar(255)
-  companyWebsite  String      @db.VarChar(255)
-  companyPhone    String      @db.VarChar(255)
-  lat             Float?
-  lng             Float?
+  id             String   @id @default(dbgenerated("concat('thrp_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  createdAt      DateTime @default(now())
+  name           String   @db.VarChar(255)
+  description    String   @db.Text
+  address        String   @db.VarChar(255)
+  city           String   @db.VarChar(255)
+  state          String   @db.VarChar(255)
+  zipcode        String   @db.VarChar(255)
+  companyEmail   String   @db.VarChar(255)
+  companyWebsite String   @db.VarChar(255)
+  companyPhone   String   @db.VarChar(255)
+  lat            Float?
+  lng            Float?
 
-  therapyType     TherapyType
-  providers       ProviderNetwork[]
+  therapyType TherapyType
+  providers   ProviderNetwork[]
 
-  author          User?       @relation(fields: [authorId], references: [id])
-  authorId        String?
-  
+  author   User?   @relation(fields: [authorId], references: [id])
+  authorId String?
+
   @@index([authorId])
 }
 
@@ -41,40 +42,42 @@ enum TherapyType {
 }
 
 model TherapyNotFound {
-  id              String      @id @default(cuid())
-  location        String      @unique
-  lat             Float
-  lng             Float
+  id       String @id @default(cuid())
+  location String @unique
+  lat      Float
+  lng      Float
 
-  user            User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId          String
+  user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
   @@index([userId])
 }
 
 model ProviderNetwork {
-  id            String  @id @default(cuid())
-  name          String
+  id   String @id @default(cuid())
+  name String
 
-  therapyId     String
-  therapy       Therapy @relation(fields: [therapyId], references: [id], onDelete: Cascade)
+  therapyId String
+  therapy   Therapy @relation(fields: [therapyId], references: [id], onDelete: Cascade)
+
   @@index([therapyId])
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
-  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -91,19 +94,19 @@ model Session {
 }
 
 model User {
-  id              String              @id @default(cuid())
-  name            String?
-  password        String?             
-  email           String?             @unique
-  emailVerified   DateTime?
-  image           String?
-  role            String?             @default("user")
-  bio             String?
+  id            String    @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  name          String?
+  password      String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          String?   @default("user")
+  bio           String?
 
-  accounts        Account[]
-  sessions        Session[]
-  therapies       Therapy[]
-  therapyNoFound  TherapyNotFound[]
+  accounts       Account[]
+  sessions       Session[]
+  therapies      Therapy[]
+  therapyNoFound TherapyNotFound[]
 }
 
 model VerificationToken {
