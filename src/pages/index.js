@@ -23,8 +23,8 @@ export default function Home({ posts }) {
             <Image
               src="/transparent_family.png"
               alt="Family"
-              width={600}
-              height={600}
+              width={1000}
+              height={1000}
             />
           </div>
         </div>
