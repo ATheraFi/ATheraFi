@@ -12,7 +12,7 @@ datasource db {
 }
 
 model Therapy {
-  id             String   @id @default(dbgenerated("concat('thrp_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  id             String   @id @default(cuid())
   createdAt      DateTime @default(now())
   name           String   @db.VarChar(255)
   description    String   @db.Text
@@ -94,7 +94,7 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  id            String    @id @default(cuid())
   name          String?
   password      String?
   email         String?   @unique
