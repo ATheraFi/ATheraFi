@@ -2,31 +2,21 @@ import { SearchBar } from "@/components";
 import {BlogCard} from "@/components";
 import { useUser } from "@clerk/nextjs";
 import { getFeaturedPosts } from "../../lib/hygraph";
-import Image from 'next/image'
 
 export default function Home({ posts }) {
   const { user } = useUser()
+
   return (
     <>
-      <div className="flex flex-col md:flex-row bg-gradient-to-l from-blue-400 to-blue-800 h-[75vh] items-center">
-        <div className="md:w-1/2 text-black py-16 px-10">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
+      <div className="flex flex-col md:flex-row h-[50vh] items-center bg-[url('/background-new.png')] bg-no-repeat bg-cover">
+        <div className="md:w-2/3 text-black py-16 px-10">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 drop-shadow-lg">
             Welcome to <span className="text-yellow-400">ATheraFi</span>
           </h1>
-          <p className="text-lg md:text-2xl text-white mb-8">
+          <p className="text-lg md:text-2xl text-white mb-8 drop-shadow-lg">
             We are here to help you find the right therapy and resources for your unique needs.
           </p>
           <SearchBar />
-        </div>
-        <div className="md:w-1/2 hidden md:block">
-          <div className="flex justify-center">
-            <Image
-              src="/transparent_family.png"
-              alt="Family"
-              width={1000}
-              height={1000}
-            />
-          </div>
         </div>
       </div>
 

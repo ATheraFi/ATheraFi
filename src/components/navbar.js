@@ -1,4 +1,4 @@
-import { UserButton, useUser } from "@clerk/nextjs";
+import { UserButton, useClerk, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from 'next/link'
 import React from 'react'
@@ -6,62 +6,60 @@ import toast from 'react-hot-toast'
 
 function Navbar() {
   const { user } = useUser();
+  const { signOut } = useClerk();
+  console.log("User: ", user);
 
   return (
-    <div>
-      <div className="navbar bg-transparent px-10 text-black">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-            </label>
-            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/blog">Blog</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-            </ul>
-          </div>
-          <Link href="/">
-            <Image width={150} height={100} src='/transparent-logo.svg' alt="ATheraFi" />
-          </Link>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/blog">Blog</Link>
-            </li>
-            <li>
-              <Link href="/about">About</Link>
-            </li>
+    <div className="navbar bg-base-100">
+      <div className="lg:hidden">
+        <div className="dropdown">
+          <label tabIndex={0} className="btn btn-ghost btn-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+          </label>
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <Link href="/" className="hover:text-gray-300">Home</Link>
+            <Link href="/blog" className="hover:text-gray-300">Blog</Link>
+            <Link href="/about" className="hover:text-gray-300">About</Link>
           </ul>
         </div>
-        <div className="navbar-end">
-          { !user ? (
-            <div>
-              <Link href="/sign-up" className="btn btn-sm btn-secondary mr-2">Sign Up</Link>
-              <Link href="/sign-in" className="btn btn-sm btn-primary btn-outline">Sign In</Link>
-            </div>
-          ) : (
-            <UserButton
-              userProfileMode="navigation"
-              userProfileUrl={
-                typeof window !== "undefined" ? `${window.location.origin}/profile` : undefined
-              }
-            />
-          )}
-        </div>
+      </div>
+
+      {/* Company Logo */}
+      <div className="flex-1">
+        <Image
+          src="/transparent-logo.svg"
+          alt="ATheraFi"
+          width={120}
+          height={80}
+        />
+      </div>
+
+      {/* Desktop Navigation */}
+      <div className="lg:flex flex-2 space-x-6 hidden">
+        <Link href="/" className="hover:text-gray-300">Home</Link>
+        <Link href="/blog" className="hover:text-gray-300">Blog</Link>
+        <Link href="/about" className="hover:text-gray-300">About</Link>
+      </div>
+
+      {/* Auth Buttons */}
+      <div className="flex-1 space-x-2 justify-end">
+        { user ? (
+          <UserButton
+            userProfileMode="navigation"
+            userProfileUrl={
+              typeof window !== "undefined" ? `${window.location.origin}/profile` : undefined
+            }
+          />
+        ) : (
+          <div>
+            <Link href="/sign-up" className="btn">Register</Link>
+            <Link href="/sign-in" className="btn">Login</Link>
+          </div>
+        )}
+        
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Navbar
