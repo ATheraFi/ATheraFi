@@ -51,9 +51,9 @@ function Navbar() {
             }
           />
         ) : (
-          <div>
-            <Link href="/sign-up" className="btn">Register</Link>
-            <Link href="/sign-in" className="btn">Login</Link>
+          <div className="space-x-6">
+            <Link href="/sign-in" className="font-bold">Login</Link>
+            <Link href="/sign-up" className="btn btn-primary btn-outline">Register</Link>
           </div>
         )}
         
