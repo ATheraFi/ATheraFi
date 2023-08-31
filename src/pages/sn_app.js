@@ -1,4 +1,3 @@
-import Layout from '@/components/layout'
 import Head from 'next/head'
 import '@/styles/globals.css'
 import { Toaster } from 'react-hot-toast'
@@ -25,10 +24,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         <meta name="author" content="Jake Reck" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
         <Toaster position="top-center" />
         <Component {...pageProps} />
-      </Layout>
     </ClerkProvider>
   ) : <LoadingPage />
 }

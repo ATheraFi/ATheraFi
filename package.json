@@ -23,13 +23,13 @@
     "autoprefixer": "10.4.14",
     "bcryptjs": "^2.4.3",
     "drizzle-orm": "^0.27.0",
-    "eslint-config-next": "^13.4.2",
+    "eslint-config-next": "^13.4.19",
     "formik": "^2.2.9",
     "framer-motion": "^10.12.7",
     "graphql": "^16.6.0",
     "graphql-request": "^6.0.0",
     "moment": "^2.29.4",
-    "next": "^13.4.2",
+    "next": "^13.4.19",
     "next-auth": "^4.22.1",
     "next-superjson": "^0.0.4",
     "postcss": "8.4.23",
@@ -48,8 +48,11 @@
     "yup": "^1.1.1"
   },
   "devDependencies": {
+    "@types/node": "^20.5.6",
+    "@types/react": "^18.2.21",
     "daisyui": "^3.6.1",
     "drizzle-kit": "^0.19.2",
-    "prisma": "^4.14.1"
+    "prisma": "^4.14.1",
+    "typescript": "^5.2.2"
   }
 }
