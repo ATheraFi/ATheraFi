@@ -1,6 +1,7 @@
+"use client"
+
 import React from 'react'
-import { getServerSession } from 'next-auth'
-import { ProfileComponent } from '@/components'
+import ProfileComponent from '@/components/profile/Profile';
 import { useUser } from '@clerk/nextjs'
 
 function Profile() {

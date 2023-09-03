@@ -1,12 +1,12 @@
+"use client"
+
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
-import Input from '../input';
-import Avatar from '../avatar';
+import Input from '../shared/Input';
 
-
-const Account = ({ user }) => {
-  const [bio, setBio] = useState(user.bio);
+const Account = ({ user }: any) => {
+  const [bio, setBio] = useState(user?.bio);
 
   const onUpdate = async () => {
     console.log("BIO: ", bio)
@@ -35,7 +35,7 @@ const Account = ({ user }) => {
           id="name"
           type="text"
           name="name"
-          value={user.fullName}
+          value={user?.fullName}
           disabled
         />
         <Input
@@ -43,7 +43,7 @@ const Account = ({ user }) => {
           id="email"
           type="text"
           name="email"
-          value={user.primaryEmailAddress.emailAddress}
+          value={user?.primaryEmailAddress.emailAddress}
           disabled
         />
       </div>
@@ -64,8 +64,8 @@ const Account = ({ user }) => {
   )
 }
 
-const ConnectedServices = ({ therapies, setTherapies }) => {
-  const handleDelete = async (id) => {
+const ConnectedServices = ({ therapies, setTherapies }: any) => {
+  const handleDelete = async (id: any) => {
     try {
       await fetch(`/api/therapy/${id}`, {
         method: "DELETE",
@@ -73,9 +73,9 @@ const ConnectedServices = ({ therapies, setTherapies }) => {
       }).then((response) => {
         return response.json()
       }).then((data) => {
-        setTherapies(prevTherapies => prevTherapies.filter(therapy => therapy.id !== id))
+        setTherapies((prevTherapies: any) => prevTherapies.filter((therapy: any) => therapy.id !== id))
       })
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Error: ", error.message)
       console.error("Error: ", error)
     }
@@ -97,7 +97,7 @@ const ConnectedServices = ({ therapies, setTherapies }) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {therapies.map((therapy) => (
+              {therapies.map((therapy: any) => (
                 <tr key={therapy.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{therapy.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{therapy.therapyType}</td>
@@ -110,12 +110,12 @@ const ConnectedServices = ({ therapies, setTherapies }) => {
                         Edit
                       </Link>
                       <button
-                        onClick={() => {
-                          toast.promise(handleDelete(therapy.id), {
-                            loading: 'Deleting...',
-                            success: 'Therapy deleted!'
-                          })
-                        }}
+                        // onClick={() => {
+                        //   toast.promise(handleDelete(therapy.id), {
+                        //     loading: 'Deleting...',
+                        //     success: 'Therapy deleted!'
+                        //   })
+                        // }}
                         className="text-sm px-2 py-1 rounded-md bg-red-500 text-white hover:bg-red-600 transition-colors duration-300"
                       >
                         Delete
@@ -134,9 +134,9 @@ const ConnectedServices = ({ therapies, setTherapies }) => {
 }
 
 
-const Profile = ({ user }) => {
+const ProfileComponent = ({ user }: any) => {
   const [activeTab, setActiveTab] = useState('tab1')
-  const [therapies, setTherapies] = useState(user.therapies)
+  const [therapies, setTherapies] = useState(user?.therapies)
 
   const handleTab1 = () => {
     setActiveTab("tab1");
@@ -150,12 +150,12 @@ const Profile = ({ user }) => {
   return (
     <div className="card shadow-lg p-8 flex md:flex-row">
       <div className="md:border-r-2 flex flex-col items-center">
-        <img src={user.profileImageUrl} className="avatar rounded-full w-24 mb-2" />
-        <h1 className="text-3xl">{ user.fullName }</h1>
+        <img src={user?.profileImageUrl} className="avatar rounded-full w-24 mb-2" />
+        <h1 className="text-3xl">{ user?.fullName }</h1>
         <ul className="menu bg-base-100 w-56">
           <li><a className={activeTab === "tab1" ? "active" : ""} onClick={handleTab1}>Account</a></li>
 
-          {user.role === "therapy" &&
+          {user?.role === "therapy" &&
             <li><a className={activeTab === "tab2" ? "active" : ""} onClick={handleTab2}>My Services</a></li>
           }
 
@@ -170,4 +170,4 @@ const Profile = ({ user }) => {
   );
 };
 
-export default Profile;
+export default ProfileComponent;

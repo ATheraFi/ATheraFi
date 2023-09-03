@@ -1,11 +1,12 @@
+"use client"
+
 import React from 'react';
 import { useUser } from '@clerk/nextjs';
-import AccountProfile from '@/components/account-profile';
 
 export default function Onboarding() {
   const { user } = useUser();
 
-  const userInfo = {};
+  const userInfo: any = {};
 
   const userData = {
     id: user?.id,
