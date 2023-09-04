@@ -1,5 +1,3 @@
-// import Searchbar
-
 import SearchBar from "@/components/shared/SearchBar";
 
 export default function Home() {

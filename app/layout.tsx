@@ -1,18 +1,22 @@
 import { ClerkProvider } from '@clerk/nextjs';
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { useLoadScript } from '@react-google-maps/api';
+import { useMemo } from 'react'
 
 import Navbar from '@/components/shared/Navbar';
 
 const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-  title: 'ATheraFi',
-  description: '',
-}
+const googleMapsApiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const libraries = useMemo(() => ['places'], [])
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: googleMapsApiKey,
+    libraries: libraries as ("places" | "drawing" | "geometry" | "localContext" | "visualization")[]
+  })
+  
   return (
     <ClerkProvider>
       <html lang="en">
