@@ -1,5 +1,5 @@
-import { SearchBar } from '@/components'
 import React from 'react'
+import SearchBar from '@/components/shared/SearchBar'
 
 const NoResultsPage = () => {
   return (

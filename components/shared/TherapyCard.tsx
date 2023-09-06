@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-const TherapyCard = ({ therapy }) => {
+const TherapyCard = ({ therapy }: any) => {
   return (
     <Link href={`/therapy/${therapy.id}`}>
       <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col mb-4">

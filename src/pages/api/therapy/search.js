@@ -4,11 +4,6 @@ export default async function handler(req, res) {
   const { lat, lng, therapyType } = req.query;
   const radius = 25; // Radius in miles
 
-  console.log(`
-    LAT: ${lat}
-    LNG: ${lng}
-  `)
-
   const latDegreePerMile = 0.0144927536; // Approximate latitude degrees per mile
   const lngDegreePerMile = 0.0181818182; // Approximate longitude degrees per mile
 

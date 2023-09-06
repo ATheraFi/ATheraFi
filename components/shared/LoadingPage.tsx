@@ -1,4 +1,4 @@
-const LoadingSpinner = ({size}) => {
+const LoadingSpinner = ({size}: any) => {
   return (
     <div role="status">
       <svg aria-hidden="true" width={size ?? 16} height={size ?? 16} className="text-gray-200 animate-spin dark:text-gray-600 fill-slate-100" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

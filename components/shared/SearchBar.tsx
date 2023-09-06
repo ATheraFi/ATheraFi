@@ -80,7 +80,8 @@ function SearchBar() {
     }
 
     try {
-      router.push(`/therapy/search?city=${city}&state=${state}&lat=${lat}&lng=${lng}&therapyType=${therapyType}`);
+      router.push('/therapy/search')
+      // router.push(`/search?city=${city}&state=${state}&lat=${lat}&lng=${lng}&therapyType=${therapyType}`);
     } catch (error) {
       console.error("Error in handleSubmit:", error);
     }
