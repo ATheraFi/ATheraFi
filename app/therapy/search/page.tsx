@@ -25,7 +25,7 @@ async function getTherapies() {
 }
 
 async function Search() {
-  const therapies = await getTherapies()
+  const {therapies} = await getTherapies()
 
   return (
     <div className="mt-2 px-8">
