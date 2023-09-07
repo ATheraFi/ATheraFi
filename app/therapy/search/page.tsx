@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect, useState, useMemo, cache, use } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import useSWR from 'swr';
 import TherapyCard from '@/components/shared/TherapyCard';
 import LoadingPage from '@/components/shared/LoadingPage';
@@ -11,10 +12,8 @@ import { Therapy } from '@prisma/client';
 
 const getTherapies = () => fetch("http://localhost:3000/api/search").then((res) => res.json());
 
-function Search() {
-  // let { city, state, lat, lng, therapyType } = router.query;
-  let therapies = getTherapies()
-  console.log("THERAPIES: ", therapies)
+async function Search() {
+  let therapies = await getTherapies()
 
   return (
     <div className="mt-2 px-8">
@@ -24,7 +23,7 @@ function Search() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-2">
         <div className="col-span-1 md:col-span-8">
-
+          { therapies.map(( therapy: any ) => <TherapyCard therapy={therapy} /> )}
         </div>
         <div className="col-span-1 md:col-span-4">
 
