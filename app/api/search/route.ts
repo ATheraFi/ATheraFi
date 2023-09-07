@@ -27,7 +27,7 @@ export async function GET(request: Request) {
   const lngMax = lng + lngDegreeRadius;
 
   try {
-    const therapies = await prisma.therapy.findMany({
+    const therapies = await prisma?.therapy.findMany({
       include: {
         author: true,
         providers: true,
