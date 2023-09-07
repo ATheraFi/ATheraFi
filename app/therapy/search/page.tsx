@@ -18,7 +18,9 @@ async function getTherapies() {
   const lng: number = parseFloat(searchParams?.get('lng') as string)
   const therapyType: TherapyType | null = searchParams?.get('therapyType') as TherapyType | null
 
-  const res = await fetch(`http://localhost:3000/api/search?city=${city}&state=${state}&lat=${lat}&lng=${lng}&therapyType=${therapyType}`)
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://atherafi.com';
+
+  const res = await fetch(`${baseUrl}/api/search?city=${city}&state=${state}&lat=${lat}&lng=${lng}&therapyType=${therapyType}`)
   return res.json()
 }
 
