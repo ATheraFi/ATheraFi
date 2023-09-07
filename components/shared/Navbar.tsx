@@ -8,8 +8,6 @@ import toast from 'react-hot-toast'
 
 function Navbar() {
   const { user } = useUser();
-  const { signOut } = useClerk();
-  console.log("User: ", user);
 
   return (
     <div className="navbar bg-base-100">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import moment from "moment";
 
-export default function BlogCard({ post }) {
+export default function BlogCard({ post }: any) {
   return (
     <div className="bg-white rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
       <Link href={`/blog/${post.slug}`}>

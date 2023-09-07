@@ -1,5 +1,3 @@
-"use client"
-
 import prisma from "@/lib/prisma";
 import { useSearchParams } from "next/navigation";
 import { NextRouter } from "next/router";
@@ -7,7 +5,7 @@ import { NextResponse } from "next/server";
 import { TherapyType } from "@prisma/client";
 
 export async function GET(request: Request) {
-  const searchParams = useSearchParams()
+  const { searchParams } = new URL(request.url)
 
   const city = searchParams?.get('city')
   const state = searchParams?.get('state')
@@ -28,8 +26,6 @@ export async function GET(request: Request) {
   const lngMin = lng - lngDegreeRadius;
   const lngMax = lng + lngDegreeRadius;
 
-  const therapies = await prisma.therapy.findMany()
-
   try {
     const therapies = await prisma.therapy.findMany({
       include: {
@@ -48,11 +44,10 @@ export async function GET(request: Request) {
         },
       },
     });
-    console.log("Therapies: ", therapies)
 
-    NextResponse.json(therapies);
+    return NextResponse.json(therapies);
   } catch (error) {
     console.error(error);
-    NextResponse.json({ error: 'An error occurred' });
+    return NextResponse.json({ error: 'An error occurred' });
   }
 }

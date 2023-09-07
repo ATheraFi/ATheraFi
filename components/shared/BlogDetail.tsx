@@ -1,9 +1,19 @@
 import React from 'react';
 import moment from 'moment/moment';
 
-const BlogDetail = ({ post }) => {
-  const getContentFragment = (index, text, obj, type) => {
-    let modifiedText = text;
+interface RawContent {
+  children: Array<{
+    text: string;
+  }>;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+  type: string;
+}
+
+const BlogDetail = ({ post }: any) => {
+  const getContentFragment = (index: number, text: string | JSX.Element[], obj: RawContent, type: string): JSX.Element | string => {
+    let modifiedText: string | JSX.Element[] = text;
 
     if (obj) {
       if (obj.bold) {

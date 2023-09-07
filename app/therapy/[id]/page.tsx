@@ -1,22 +1,22 @@
-"use client"
-
 import React from 'react';
 import LoadingPage from '@/components/shared/LoadingPage';
 import MyMapComponent from '@/components/shared/MyMapComponent';
 import prisma from '../../../lib/prisma'
-import { useRouter } from 'next/router';
+import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
-const TherapyDetails = ({ therapy }: any) => {
-  const router = useRouter();
-  const center = { lat: therapy.lat, lng: therapy.lng };
+async function getData(id: string) {
+  const res = await fetch(`http://localhost:3000/api/therapy/${id}`)
 
-  if (router.isFallback) {
-    return <LoadingPage />;
-  }
-  if (!therapy) {
-    return <p>Therapy not found.</p>;
-  }
+  if (!res.ok) throw new Error('Failed to fetch data')
+
+  return res.json()
+}
+
+
+export default async function Page({ params: { id }, }: { params: { id: string }}){
+  const therapy = await getData(id)
+  console.log("Data: ", therapy)
 
   return (
     <div className="flex flex-col md:flex-row p-8 gap-4">
@@ -51,36 +51,8 @@ const TherapyDetails = ({ therapy }: any) => {
         </div>
       </div>
       <div className="w-full md:w-2/3">
-        <MyMapComponent center={center} />
+        {/* <MyMapComponent center={center} /> */}
       </div>
     </div>
   );
 };
-
-export async function getStaticPaths() {
-  let therapies = await prisma.therapy.findMany();
-  therapies = JSON.parse(JSON.stringify(therapies));
-  const paths = therapies.map(({ id }) => ({
-    params: { id: id },
-  }));
-  return { paths, fallback: true };
-}
-
-export async function getStaticProps({ params: { id } }: any) {
-  let therapy = await prisma.therapy.findUnique({
-    where: {
-      id: id,
-    },
-    include: {
-      author: true,
-      providers: true,
-    },
-  });
-  therapy = JSON.parse(JSON.stringify(therapy));
-  return {
-    props: { therapy, id },
-    revalidate: 1,
-  };
-}
-
-export default TherapyDetails;
