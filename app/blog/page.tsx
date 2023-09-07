@@ -33,9 +33,6 @@ const getBlogPosts = async () => {
   })
 
   const { data } = await response.json();
-
-  console.log("Data: ", data.postsConnection.edges)
-
   return data.postsConnection.edges
 }
 

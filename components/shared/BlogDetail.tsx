@@ -1,59 +1,8 @@
 import React from 'react';
 import moment from 'moment/moment';
+import { RichText } from "@graphcms/rich-text-react-renderer"
 
-interface RawContent {
-  children: Array<{
-    text: string;
-  }>;
-  bold?: boolean;
-  italic?: boolean;
-  underline?: boolean;
-  type: string;
-}
-
-const BlogDetail = ({ post }: any) => {
-  const getContentFragment = (index: number, text: string | JSX.Element[], obj: RawContent, type: string): JSX.Element | string => {
-    let modifiedText: string | JSX.Element[] = text;
-
-    if (obj) {
-      if (obj.bold) {
-        modifiedText = <b key={index}>{text}</b>;
-      }
-
-      if (obj.italic) {
-        modifiedText = <em key={index}>{text}</em>;
-      }
-
-      if (obj.underline) {
-        modifiedText = <u key={index}>{text}</u>;
-      }
-    }
-
-    switch (type) {
-      case 'heading-three':
-        return <h3 key={index} className="text-2xl font-semibold mb-4">{modifiedText}</h3>;
-      case 'paragraph':
-        return <p key={index} className="mb-6">{modifiedText}</p>;
-      case 'heading-four':
-        return <h4 key={index} className="text-xl font-semibold mb-4">{modifiedText}</h4>;
-      case 'heading-five':
-        return <h5 key={index} className="text-lg font-semibold mb-4">{modifiedText}</h5>;
-      case 'image':
-        return (
-          <img
-            key={index}
-            alt={obj.title}
-            height={obj.height}
-            width={obj.width}
-            src={obj.src}
-            className="object-cover object-center w-full mb-6 rounded-lg shadow-md"
-          />
-        );
-      default:
-        return modifiedText;
-    }
-  };
-
+const BlogDetail: React.FC<{ post: any }> = async ({ post }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <img src={post.coverImage.url} alt="" className="object-cover w-full h-64" />
@@ -73,13 +22,16 @@ const BlogDetail = ({ post }: any) => {
           <span>{moment(post.createdAt).format('MMM DD, YYYY')}</span>
         </div>
         <h1 className="text-4xl font-semibold mb-8">{post.title}</h1>
-        {post.content.raw.children.map((typeObj, index) => {
-          const children = typeObj.children.map((item, itemIndex) =>
-            getContentFragment(itemIndex, item.text, item)
-          );
-
-          return getContentFragment(index, children, typeObj, typeObj.type);
-        })}
+        <RichText 
+          content={post?.content?.json}
+          renderers={{
+            h2: ({ children }) => <h2 className="text-2xl font-bold">{ children }</h2>,
+            h3: ({ children }) => <h3 className="text-xl font-bold">{ children }</h3>,
+            h4: ({ children }) => <h4 className="text-lg font-bold">{ children }</h4>,
+            h5: ({ children }) => <h5 className="text-md font-bold">{ children }</h5>,
+            bold: ({ children }) => <strong className="font-bold">{children}</strong>
+          }}
+        />
       </div>
     </div>
   );

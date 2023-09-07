@@ -18,6 +18,7 @@ const getBlogPostDetails = async (slug: string) => {
       query: `
         query GetPostDetails($slug : String!) {
           post(where: {slug: $slug}) {
+            id
             title
             excerpt
             coverImage {
@@ -33,7 +34,7 @@ const getBlogPostDetails = async (slug: string) => {
             createdAt
             slug
             content {
-              raw
+              json
             }
           }
         }
