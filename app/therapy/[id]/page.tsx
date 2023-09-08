@@ -1,8 +1,4 @@
 import React from 'react';
-import LoadingPage from '@/components/shared/LoadingPage';
-import MyMapComponent from '@/components/shared/MyMapComponent';
-import prisma from '../../../lib/prisma'
-import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 async function getData(id: string) {
@@ -17,7 +13,6 @@ async function getData(id: string) {
 
 export default async function Page({ params: { id }, }: { params: { id: string }}){
   const therapy = await getData(id)
-  console.log("Data: ", therapy)
 
   return (
     <div className="flex flex-col md:flex-row p-8 gap-4">

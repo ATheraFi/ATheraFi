@@ -13,5 +13,10 @@ export async function GET(request: Request, { params }: { params: { id: string }
     return new NextResponse("No therapy with ID found", { status: 404 });
   }
 
-  return NextResponse.json(therapy)
+  return new NextResponse(JSON.stringify(therapy), {
+    headers: {
+      'Access-Control-Allow-Origin': "*",
+      'Content-Type': 'application/json'
+    }
+  })
 }

@@ -20,7 +20,4 @@ export function middleware(request: Request) {
   return NextResponse.next()
 }
 
-export const config = { matcher: '/api/:path*' };
-
-
-// '/((?!_next/image|_next/static|favicon.ico).*)', 
+export const config = { matcher: ['/api/:path*'] };
