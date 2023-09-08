@@ -16,6 +16,14 @@ const nextConfig = {
         ]
       }
     ]
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://www.atherafi.com/:path*'
+      }
+    ]
   }
 }
 
