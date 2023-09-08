@@ -6,7 +6,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 async function getData(id: string) {
-  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://atherafi.com';
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.atherafi.com';
   const res = await fetch(`${baseUrl}/api/therapy/${id}`)
 
   if (!res.ok) throw new Error('Failed to fetch data')
