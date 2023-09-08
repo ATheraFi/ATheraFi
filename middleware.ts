@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { authMiddleware  } from "@clerk/nextjs";
 
 const allowedOrigins = process.env.NODE_ENV === "production" 
   ? ['https://www.atherafi.com', 'https://atherafi.com'] 
@@ -20,4 +21,11 @@ export function middleware(request: Request) {
   return NextResponse.next()
 }
 
-export const config = { matcher: ['/api/:path*'] };
+export default authMiddleware({
+  beforeAuth: (req) => {
+    return middleware(req);
+  },
+  publicRoutes: ['/', '/profile']
+});
+
+export const config = { matcher: ['/api/:path*', "/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"] };

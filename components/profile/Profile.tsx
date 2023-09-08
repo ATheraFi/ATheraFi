@@ -64,7 +64,7 @@ const Account = ({ user }: any) => {
   )
 }
 
-const ConnectedServices = ({ therapies, setTherapies }: any) => {
+const ConnectedServices = ({ therapies }: any) => {
   const handleDelete = async (id: any) => {
     try {
       await fetch(`/api/therapy/${id}`, {
@@ -72,8 +72,6 @@ const ConnectedServices = ({ therapies, setTherapies }: any) => {
         headers: { 'Content-Type': 'application/json' },
       }).then((response) => {
         return response.json()
-      }).then((data) => {
-        setTherapies((prevTherapies: any) => prevTherapies.filter((therapy: any) => therapy.id !== id))
       })
     } catch (error: any) {
       toast.error("Error: ", error.message)
@@ -97,7 +95,7 @@ const ConnectedServices = ({ therapies, setTherapies }: any) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {therapies.map((therapy: any) => (
+              { therapies.map((therapy: any) => (
                 <tr key={therapy.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{therapy.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{therapy.therapyType}</td>
@@ -134,9 +132,8 @@ const ConnectedServices = ({ therapies, setTherapies }: any) => {
 }
 
 
-const ProfileComponent = ({ user }: any) => {
+const ProfileComponent = ({ user, therapies }: any) => {
   const [activeTab, setActiveTab] = useState('tab1')
-  const [therapies, setTherapies] = useState(user?.therapies)
 
   const handleTab1 = () => {
     setActiveTab("tab1");
@@ -146,16 +143,16 @@ const ProfileComponent = ({ user }: any) => {
     setActiveTab("tab2");
   }
 
-  console.log(user)
   return (
     <div className="card shadow-lg p-8 flex md:flex-row">
       <div className="md:border-r-2 flex flex-col items-center">
         <img src={user?.profileImageUrl} className="avatar rounded-full w-24 mb-2" />
         <h1 className="text-3xl">{ user?.fullName }</h1>
+        <p>{ user?.unsafeMetadata?.role }</p>
         <ul className="menu bg-base-100 w-56">
           <li><a className={activeTab === "tab1" ? "active" : ""} onClick={handleTab1}>Account</a></li>
 
-          {user?.role === "therapy" &&
+          {user?.unsafeMetadata?.role === "Therapy" &&
             <li><a className={activeTab === "tab2" ? "active" : ""} onClick={handleTab2}>My Services</a></li>
           }
 
@@ -163,7 +160,7 @@ const ProfileComponent = ({ user }: any) => {
       </div>
 
       <div className="ml-4 w-full">
-        {activeTab === "tab1" ? <Account user={user} /> : <ConnectedServices therapies={therapies} setTherapies={setTherapies} />}
+        {activeTab === "tab1" ? <Account user={user} /> : <ConnectedServices therapies={therapies} />}
       </div>
 
     </div>
