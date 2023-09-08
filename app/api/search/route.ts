@@ -1,10 +1,9 @@
 import prisma from "@/lib/prisma";
-import { useSearchParams } from "next/navigation";
-import { NextRouter } from "next/router";
 import { NextResponse } from "next/server";
 import { TherapyType } from "@prisma/client";
 
 export async function GET(request: Request) {
+  const origin = request.headers.get('origin')
   const { searchParams } = new URL(request.url)
 
   const city = searchParams?.get('city')
@@ -45,7 +44,12 @@ export async function GET(request: Request) {
       },
     });
 
-    return NextResponse.json(therapies);
+    return new NextResponse(JSON.stringify(therapies), {
+      headers: {
+        'Access-Control-Allow-Origin': origin || "*",
+        'Content-Type': 'application/json'
+      }
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: 'An error occurred' });
