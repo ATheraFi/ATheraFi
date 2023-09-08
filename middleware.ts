@@ -1,9 +1,13 @@
-import { withClerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-export default withClerkMiddleware((req) => {
-  return NextResponse.next();
-});
+export function middleware(request: Request) {
+  const origin = request.headers.get('origin')
+
+  return NextResponse.next()
+}
 
 // Stop Middleware running on static files
-export const config = { matcher:  '/((?!_next/image|_next/static|favicon.ico).*)',};
+export const config = { matcher:  '/api/:path*' };
+
+
+// '/((?!_next/image|_next/static|favicon.ico).*)', 
