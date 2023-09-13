@@ -25,10 +25,19 @@ export async function GET(
     });
   }
 
-  return new NextResponse(JSON.stringify(therapy), {
-    headers: {
-      'Access-Control-Allow-Origin': "*",
-      'Content-Type': 'application/json'
+  let json_response = {
+    status: 'success',
+    data: {
+      therapy
     }
-  })
+  }
+  
+  return NextResponse.json(json_response)
+
+  // return new NextResponse(JSON.stringify(therapy), {
+  //   headers: {
+  //     'Access-Control-Allow-Origin': "*",
+  //     'Content-Type': 'application/json'
+  //   }
+  // })
 }

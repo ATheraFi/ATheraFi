@@ -50,7 +50,7 @@ const getBlogPostDetails = async (slug: string) => {
 
 
 
-export default async function PostDetails({ params }: any) {
+export default async function Page({ params }: any) {
   const post = await getBlogPostDetails(params.slug)
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import SearchBar from '@/components/shared/SearchBar'
 
-const NoResultsPage = () => {
+export default function Page() {
   return (
     <>
     <div className="my-4 w-full px-8">
@@ -15,5 +15,3 @@ const NoResultsPage = () => {
     </>
   )
 }
-
-export default NoResultsPage

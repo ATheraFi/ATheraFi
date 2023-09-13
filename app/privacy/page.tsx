@@ -1,6 +1,6 @@
 import React from 'react'
 
-function PrivacyPolicy() {
+export default function Page() {
   return (
     <div>
       <h1 className="text-2xl">Privacy Policy</h1>
@@ -201,5 +201,3 @@ function PrivacyPolicy() {
     </div>
   )
 }
-
-export default PrivacyPolicy

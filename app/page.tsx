@@ -1,6 +1,6 @@
 import SearchBar from "@/components/shared/SearchBar";
 
-export default function Home() {
+export default function Page() {
   return (
     <>
       <div className="flex flex-col md:flex-row h-[50vh] items-center bg-[url('/background-new.png')] bg-no-repeat bg-cover">

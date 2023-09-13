@@ -3,7 +3,7 @@ import Image from 'next/image'
 import header from '../../public/bg-bp.jpg'
 import jake from '../../public/jake.jpg'
 
-function About() {
+function Page() {
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 mt-5 mx-auto flex flex-col">
@@ -53,4 +53,4 @@ function About() {
   )
 }
 
-export default About
+export default Page

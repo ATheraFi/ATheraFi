@@ -37,7 +37,7 @@ const getBlogPosts = async () => {
 }
 
 
-export default async function Blog() {
+export default async function Page() {
   const posts = await getBlogPosts();
 
   return (

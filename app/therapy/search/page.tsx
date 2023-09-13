@@ -24,7 +24,7 @@ async function getTherapies() {
   return res.json()
 }
 
-async function Page() {
+export default async function Page() {
   const searchParams = useSearchParams()
   const lat: number = parseFloat(searchParams?.get('lat') as string)
   const lng: number = parseFloat(searchParams?.get('lng') as string)
@@ -49,5 +49,3 @@ async function Page() {
     </div>
   );
 }
-
-export default Page;

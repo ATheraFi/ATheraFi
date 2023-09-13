@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FAQPage = () => {
+export default function Page(){
   const faqs = [
     {
       question: 'What therapies does ATheraFi support?',
@@ -30,5 +30,3 @@ const FAQPage = () => {
     </div>
   );
 };
-
-export default FAQPage;
