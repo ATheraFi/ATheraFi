@@ -3,8 +3,14 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/shared/Navbar';
 import GoogleMapsLoader from '@/utils/GoogleMapsLoader';
+import { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'ATheraFi',
+  description: 'This is a description'
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   

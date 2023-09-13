@@ -10,7 +10,14 @@ export async function GET(request: Request){
   })
 
   if (!therapies) {
-    return new NextResponse("No therapy with ID found", { status: 404 });
+    let error_response = {
+      status: 'fail',
+      message: 'No therapies found',
+    }
+    return new NextResponse(JSON.stringify(error_response), { 
+      status: 404,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   return new NextResponse(JSON.stringify(therapies), {

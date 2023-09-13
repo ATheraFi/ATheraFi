@@ -1,22 +1,34 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, { params }: { params: { id: string } }){
-  const id = params.id
-  const therapy = await prisma?.therapy.findUnique({
-    where: { 
-      id,
-    }
-  })
+export async function GET(
+    request: Request, 
+    { params }: { params: { id: string } }
+  ) {
+    const id = params.id
+    console.log("ID: ", id)
+    const therapy = await prisma?.therapy.findUnique({
+      where: { 
+        id,
+      }
+    })
 
-  if (!therapy) {
-    return new NextResponse("No therapy with ID found", { status: 404 });
-  }
-
-  return new NextResponse(JSON.stringify(therapy), {
-    headers: {
-      'Access-Control-Allow-Origin': "*",
-      'Content-Type': 'application/json'
+    if (!therapy) {
+      let error_response = {
+        status: 'fail',
+        message: 'No therapy found with that ID.',
+      }
+      console.log("ERROR: +++++ ", JSON.stringify(error_response))
+      return new NextResponse(JSON.stringify(error_response), { 
+        status: 404,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
-  })
+
+    return new NextResponse(JSON.stringify(therapy), {
+      headers: {
+        'Access-Control-Allow-Origin': "*",
+        'Content-Type': 'application/json'
+      }
+    })
 }

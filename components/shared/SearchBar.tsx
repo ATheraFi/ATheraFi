@@ -80,7 +80,6 @@ function SearchBar() {
     }
 
     try {
-      // router.push('/therapy/search')
       router.push(`/therapy/search?city=${city}&state=${state}&lat=${lat}&lng=${lng}&therapyType=${therapyType}`);
     } catch (error) {
       console.error("Error in handleSubmit:", error);
@@ -99,7 +98,6 @@ function SearchBar() {
             onChange={handleInput}
           />
           <select
-            defaultValue={TherapyType.BEHAVIORAL}
             className="select select-bordered w-full md:w-44"
             value={therapyType}
             onChange={(e) => setTherapyType(e.target.value as TherapyType)}

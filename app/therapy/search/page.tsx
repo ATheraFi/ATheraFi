@@ -24,8 +24,13 @@ async function getTherapies() {
   return res.json()
 }
 
-async function Search() {
+async function Page() {
+  const searchParams = useSearchParams()
+  const lat: number = parseFloat(searchParams?.get('lat') as string)
+  const lng: number = parseFloat(searchParams?.get('lng') as string)
   const therapies = await getTherapies()
+
+  const center = { lat: lat, lng: lng }
 
   return (
     <div className="mt-2 px-8">
@@ -35,14 +40,14 @@ async function Search() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-2">
         <div className="col-span-1 md:col-span-8">
-          { therapies.map(( therapy: Therapy ) => <TherapyCard therapy={therapy} /> )}
+          { therapies.map(( therapy: Therapy ) => <TherapyCard key={therapy.id} therapy={therapy} /> )}
         </div>
         <div className="col-span-1 md:col-span-4">
-          {/* <MyMapComponent zoom={15} /> */}
+          <MyMapComponent zoom={15} center={center}/>
         </div>
       </div>
     </div>
   );
 }
 
-export default Search;
+export default Page;

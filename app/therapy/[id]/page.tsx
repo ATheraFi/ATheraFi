@@ -1,18 +1,32 @@
+"use client"
+
 import React from 'react';
 import Link from 'next/link';
+import MyMapComponent from '@/components/shared/MyMapComponent';
+// import { getTherapy } from '@/utils/prisma/get-therapy';
 
-async function getData(id: string) {
+async function getTherapy(id: string) {
   const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.atherafi.com';
-  const res = await fetch(`${baseUrl}/api/therapy/${id}`)
+  const url = `${baseUrl}/api/therapy/${id}`
 
-  if (!res.ok) throw new Error('Failed to fetch data')
+  try {
+    const res = await fetch(url)
 
-  return res.json()
+    if (!res.ok) {
+      throw new Error(`Failed to fetch data. Status: ${res.status}`)
+    }
+
+    const jsonData = await res.json()
+    return jsonData;
+  } catch (error) {
+    console.log("API Error: ", error);
+    throw error
+  }
 }
 
 
-export default async function Page({ params: { id }, }: { params: { id: string }}){
-  const therapy = await getData(id)
+async function Page({ params: { id }, }: { params: { id: string }}){
+  const therapy = await getTherapy(id)
 
   return (
     <div className="flex flex-col md:flex-row p-8 gap-4">
@@ -47,8 +61,10 @@ export default async function Page({ params: { id }, }: { params: { id: string }
         </div>
       </div>
       <div className="w-full md:w-2/3">
-        {/* <MyMapComponent center={center} /> */}
+        {/* <MyMapComponent zoom={15} center={{ lat: therapy.lat, lng: therapy.lng }} /> */}
       </div>
     </div>
   );
 };
+
+export default Page
