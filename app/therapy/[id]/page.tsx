@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import MyMapComponent from '@/components/shared/MyMapComponent';
-// import { getTherapy } from '@/utils/prisma/get-therapy';
 
 async function getTherapy(id: string) {
   const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.atherafi.com';
@@ -61,7 +60,7 @@ async function Page({ params: { id }, }: { params: { id: string }}){
         </div>
       </div>
       <div className="w-full md:w-2/3">
-        {/* <MyMapComponent zoom={15} center={{ lat: therapy.lat, lng: therapy.lng }} /> */}
+        <MyMapComponent zoom={15} center={{ lat: therapy.lat, lng: therapy.lng }} />
       </div>
     </div>
   );

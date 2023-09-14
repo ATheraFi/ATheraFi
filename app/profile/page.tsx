@@ -1,6 +1,8 @@
+"use client"
+
 import React from 'react'
 import ProfileComponent from '@/components/profile/Profile';
-import { useUser, auth } from '@clerk/nextjs'
+import { useUser } from '@clerk/nextjs'
 
 async function getData() {
   const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.atherafi.com';
@@ -11,16 +13,16 @@ async function getData() {
   return res.json()
 }
 
-export default async function Page() {
-  const { user } = auth();
-  const therapies = await getData()
+export default function Page() {
+  const {user} = useUser();
+  const therapies = getData()
 
-  console.log("Auth User: ", auth)
+  console.log("Auth User: ", user)
 
   return (
     <div className="mt-5 px-8">
       <p>Profile</p>
-      {/* <ProfileComponent user={user} therapies={therapies} /> */}
+      <ProfileComponent user={user} therapies={therapies} />
     </div>
   )
 }

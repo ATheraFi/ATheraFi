@@ -9,7 +9,6 @@ export function middleware(request: Request) {
   const origin = request.headers.get('origin')
 
   if (origin && !allowedOrigins.includes(origin)) {
-    console.log("THE FUCK")
     return new NextResponse(null, { 
       status: 400,
       statusText: "Bad Request",
@@ -26,7 +25,7 @@ export default authMiddleware({
   beforeAuth: (req) => {
     return middleware(req);
   },
-  publicRoutes: ['/', '/profile']
+  publicRoutes: ['/']
 });
 
-export const config = { matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'] };
+export const config = { matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"] };
