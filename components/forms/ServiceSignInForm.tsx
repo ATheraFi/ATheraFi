@@ -27,8 +27,8 @@ const TherapeuticServiceForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-100">
-      <div className="w-full p-6 bg-white rounded-lg shadow-lg">
+    <div className="flex items-center justify-center bg-gray-100 w-[75%]">
+      <div className="w-full p-6 rounded-lg shadow-lg">
         <h2 className="text-3xl font-semibold mb-4 text-center">Add Therapeutic Service</h2>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
